@@ -1,0 +1,25 @@
+.friendName{
+    text-align: center;
+    background-color: #D90416;
+    margin: 0px;
+}
+
+.friendAge{
+    text-align: center;
+    background-color: #D94E5A;
+    margin: 0px;
+}
+
+.petName{
+    background-color: #A67D65;
+    margin: 0px;
+}
+
+.petBreed{
+    background-color: #3C88A6;
+    margin: 0px;
+}
+
+.pets{
+    margin: 0px;
+}
