@@ -1,0 +1,145 @@
+.headerDiv{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('https://www.brightonphr.com/media/home/desk-2(1)-mco.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 530px;
+}
+
+.navBarContainer{
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 40px;
+}
+
+.navBarBootStrapText{
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    font-family: 'Open Sans', sans-serif;
+    border: none;
+    background-color: transparent;
+}
+
+.navBarBootStrapText:hover{
+    opacity: .7;
+}
+
+.navBarText{
+    text-decoration: none;
+    color: white;
+    font-size: 22px;
+    padding: 0px 5px;
+    font-family: 'Open Sans', sans-serif;
+    border: none;
+    background-color: transparent;
+}
+
+.navBarText:hover{
+    opacity: .6;
+}
+
+.mainHeader{
+    text-align: center;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 80px;
+    margin-bottom: 10px;
+}
+
+
+.subHeader{
+    text-align: center;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+}
+
+.bodyDiv{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+
+.authorButton{
+    border: none;
+    background-color: transparent;
+}
+
+.authorButton:hover{
+    color: #0085A1;
+}
+
+.bodyText{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.subBodyText{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+}
+
+.author{
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+    font-family: 'Lora', serif;
+}
+
+.authorText{
+    font-style: italic;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    color: 	#7e7a7a;
+}
+
+.horizontalLine{
+    width: 600px;
+}
+
+.olderPost{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 600px;
+    height: 100px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.olderPostText{
+    text-decoration: none;
+    padding: 30px 50px;
+    background-color: #0085A1;
+    font-size: 20px;
+    color: white;
+    border: none;
+}
+
+.olderPostText:hover{
+    background-color: #015c6e;
+}
+
+.footerDiv{
+    height: 200px;
+    align-items: center;
+}
+
+.iconDiv{
+    text-align: center;
+    padding-top: 50px;
+}
+
+.icons{
+    width: 75px;
+    height: 75px;
+}
+
+.icons:hover{
+    color: #0085A1;
+}
+
+.footerText{
+    text-align: center;
+}
