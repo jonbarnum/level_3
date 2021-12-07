@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import colors from './colors';
 import Box from "./Box";
-// import Buttons from "./Buttons";
-// import ButtonsRight from "./ButtonsRight";
-// import ButtonsLeft from "./ButtonsLeft";
+
 
 class App extends Component{
     constructor(){
@@ -23,9 +21,22 @@ class App extends Component{
     }
 
     djSmallClick(){
-        colors[1] = 'black';
-        colors[2] = 'black';
-        colors[3] = 'black';
+        if(
+            colors[0] === 'white' &&
+            colors[1] === 'black' &&
+            colors[2] === "black" &&
+            colors[3] === 'black'
+        ){
+            colors[0] = 'black'
+            colors[1] = 'white'
+            colors[2] = 'white'
+            colors[3] = 'white'
+        }else{
+            colors[0] = 'white'
+            colors[1] = 'black'
+            colors[2] = 'black'
+            colors[3] = 'black'
+        }
         this.setState({
             colors: this.state.colors
         })
@@ -93,7 +104,6 @@ class App extends Component{
 
     render(){
         const singleBox = this.state.colors.map((box, index) =>{
-            // console.log(box)
             return <Box box={box}/>
         })
 
