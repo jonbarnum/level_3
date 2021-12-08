@@ -1,0 +1,13 @@
+.diceSpan{
+    display: flex;
+    justify-content: space-around;
+}
+
+.number{
+    text-align: center;
+}
+
+.buttonDiv{
+    display: flex;
+    justify-content: center;
+}
