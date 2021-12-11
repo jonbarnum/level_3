@@ -28,13 +28,6 @@ class App extends Component{
         event.preventDefault()
         this.setState(prevState => {
             return{
-                firstName: '',
-                lastName: '',
-                email: '',
-                placeOfBirth: '',
-                phone: '',
-                favoriteFood: '',
-                yourself: '',
                 ...prevState,
                 nameCard: [
                     ...prevState.nameCard,
@@ -45,11 +38,40 @@ class App extends Component{
                     prevState.phone,
                     prevState.favoriteFood,
                     prevState.yourself
+                    // this.state.firstName, 
+                    // this.state.lastName, 
+                    // this.state.email,
+                    // this.state.placeOfBirth,
+                    // this.state.phone,
+                    // this.state.favoriteFood,
+                    // this.state.yourself
                 ]
             }
         })
         console.log('handle submit, worked')
     }
+
+    // handleSubmit(event){
+    //     event.preventDefault()
+    //     this.setState(prevState => {
+    //         return{
+    //             ...prevState,
+    //             nameCard: {
+    //                 firstName,
+    //                 lastName,
+    //                 email,
+    //                 placeOfBirth,
+    //                 phone,
+    //                 favoriteFood,
+    //                 yourself
+    //             },
+    //             nameCard:[
+    //                 prevState.nameCard,
+    //                 nameCard,
+    //             ]
+    //         }
+    //     })
+    // }
 
     render(){
         return(
@@ -127,12 +149,14 @@ class App extends Component{
                             required
                     />
                     <br/>
-                    <button onChange={this.handleSubmit}>submit</button>
+                    <button onClick={this.handleSubmit}>submit</button>
                 </form>
                 <div>
                     {this.state.nameCard.map(newCard => {
                         return(
-                            <li>{newCard}</li>
+                            <div>
+                                {newCard}
+                            </div>
                         )
                     })}
                 </div>
