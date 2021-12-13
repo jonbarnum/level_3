@@ -1,0 +1,21 @@
+.badgeHeaderDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.badgeHeader{
+    background-color: grey;
+}
+
+.badgeSpan{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.badgeContent{
+    margin: 0px;
+}
+
+.aboutYou{
+    border: 2px solid black;
+}

@@ -26,57 +26,36 @@ class App extends Component{
 
     handleSubmit(event){
         event.preventDefault()
-        this.setState(prevState => {
-            return{
-                ...prevState,
-                nameCard: [
-                    ...prevState.nameCard,
-                    prevState.firstName, 
-                    prevState.lastName, 
-                    prevState.email,
-                    prevState.placeOfBirth,
-                    prevState.phone,
-                    prevState.favoriteFood,
-                    prevState.yourself
-                    // this.state.firstName, 
-                    // this.state.lastName, 
-                    // this.state.email,
-                    // this.state.placeOfBirth,
-                    // this.state.phone,
-                    // this.state.favoriteFood,
-                    // this.state.yourself
-                ]
-            }
+        this.setState({
+            ...this.state,
+            firstName: '',
+            lastName: '',
+            email: '',
+            placeOfBirth: '',
+            phone: '',
+            favoriteFood: '',
+            yourself: '',
+            nameCard: [
+                ...this.state.nameCard,
+                {
+                    firstName: this.state.firstName, 
+                    lastName: this.state.lastName, 
+                    email: this.state.email,
+                    placeOfBirth: this.state.placeOfBirth,
+                    phone: this.state.phone,
+                    favoriteFood: this.state.favoriteFood,
+                    yourself: this.state.yourself
+                }
+            ]
         })
         console.log('handle submit, worked')
     }
 
-    // handleSubmit(event){
-    //     event.preventDefault()
-    //     this.setState(prevState => {
-    //         return{
-    //             ...prevState,
-    //             nameCard: {
-    //                 firstName,
-    //                 lastName,
-    //                 email,
-    //                 placeOfBirth,
-    //                 phone,
-    //                 favoriteFood,
-    //                 yourself
-    //             },
-    //             nameCard:[
-    //                 prevState.nameCard,
-    //                 nameCard,
-    //             ]
-    //         }
-    //     })
-    // }
 
     render(){
         return(
             <div>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div>
                         <input
                             type='text'
@@ -149,13 +128,37 @@ class App extends Component{
                             required
                     />
                     <br/>
-                    <button onClick={this.handleSubmit}>submit</button>
+                    <button type='submit'>submit</button>
                 </form>
                 <div>
                     {this.state.nameCard.map(newCard => {
                         return(
                             <div>
-                                {newCard}
+                                <div className={'badgeHeaderDiv'}>
+                                    <h1 className={'badgeHeader'}>Badge:</h1>
+                                </div>
+                                <div>
+                                    <span className={'badgeSpan'}>
+                                        <h2 className={'badgeContent'}>{`Name: ${newCard.firstName} ${newCard.lastName}`}</h2>
+                                        <h2 className={'badgeContent'}>{`Phone: ${newCard.phone}`}</h2>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span className={'badgeSpan'}>
+                                        <h2 className={'badgeContent'}>{`Place of Birth: ${newCard.placeOfBirth}`}</h2>
+                                        <h2 className={'badgeContent'}>{`Favorite Food: ${newCard.favoriteFood}`}</h2>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span className={'badgeSpan'}>
+                                        <h2 className={'badgeContent'}>{`Email: ${newCard.email}`}</h2>
+                                    </span>
+                                </div>
+                                <div>
+                                    <p className={'badgeContent aboutYou'}>
+                                        {`Tell Us About You: ${newCard.yourself}`}
+                                    </p>
+                                </div>
                             </div>
                         )
                     })}
