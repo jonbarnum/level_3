@@ -12,11 +12,17 @@ class App extends Component{
             topText: '',
             bottomText: '',
             previewActive: false,
+            editActive: false,
+            // editTopText: '',
+            // editBottomText: ''
         }
         this.randomImageGenerator = this.randomImageGenerator.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.preview = this.preview.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleEdit = this.handleEdit.bind(this)
+        // this.handleEditChange = this.handleEditChange.bind(this)
+        // this.handleEditSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount(){
@@ -66,8 +72,31 @@ class App extends Component{
                 }
             ]
         })
-        console.log(this.state.savedMeme)
     }
+
+    handleEdit(){
+        this.setState( prevState => {
+            return {
+                editActive: !prevState.editActive
+            }
+        })
+    }
+
+    // handleEditChange(event){
+    //     this.setState({
+    //         [event.target.name]: event.target.value
+    //     })
+    // }
+
+    // handleEditSubmit(event){
+    //     event.preventDefault()
+    //     this.setState({
+    //         topText: this.state.topText,
+    //         bottomText: this.state.bottomText,
+    //         editActive: false,
+    //     })
+    //     console.log('handle edit, worked')
+    // }
 
     render(){
         return(
@@ -115,12 +144,51 @@ class App extends Component{
                 <div>
                     {this.state.savedMeme.map(savedImage => {
                         return(
-                            <div className="savedMemeContainer">
-                                {<h2 className="topText">{savedImage.topText}</h2>}
-                                <img className="memeImage" src={savedImage.image} alt="meme list"/>
-                                {<h2 className="bottomText">{savedImage.bottomText}</h2>}
-                                <button className="button">Edit</button>
-                                <button className="button">Delete</button>
+                            <div>
+                                <div className="savedMemeContainer">
+                                    {<h2 className="topText">{savedImage.topText}</h2>}
+                                    <img className="memeImage" src={savedImage.image} alt="meme list"/>
+                                    {<h2 className="bottomText">{savedImage.bottomText}</h2>}
+                                    <button onClick={this.handleEdit} className="button">Edit</button>
+                                    <button className="button">Delete</button>
+                                    {this.state.editActive ? (
+                                        <div>
+                                            <form>
+                                                <input/>
+                                                <input/>
+                                                <button>Save</button>
+                                                <button>Delete</button>
+                                            </form>
+                                        </div>
+                                    ) : null}
+                                </div>
+                                {/* <div>
+                                    <div>
+                                        {this.state.editActive ? (                            
+                                            <div className="editInputDiv">
+                                                <form onSubmit={this.handleEditSubmit}>
+                                                    <input
+                                                    type='text'
+                                                    value={this.state.editTopText}
+                                                    name="editTopText"
+                                                    placeholder="Top Text"
+                                                    onChange={this.handleEditChange}
+                                                    className="topTextInput"
+                                                    />
+                                                    <input
+                                                    type='text'
+                                                    value={this.state.editBottomText}
+                                                    name="editBottomText"
+                                                    placeholder="Bottom Text"
+                                                    onChange={this.handleEditChange}
+                                                    className="bottomTextInput"
+                                                    />
+                                                    <button type="submit">Submit</button>
+                                                </form>
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                </div> */}
                             </div>
                         )
                     })}
