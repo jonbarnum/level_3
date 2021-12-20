@@ -1,0 +1,36 @@
+.memeBox{
+    border: 2px solid black;
+    width: 500px;
+    height: 500px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.memeImage{
+    width: 500px;
+    height: 500px;
+}
+
+.topText{
+    position: absolute;
+    margin: 0px;
+    top: 10px;
+    left: 10px;
+    background-color: #8C8984;
+}
+
+.bottomText{
+    position: absolute;
+    margin: 0px;
+    bottom: 10px;
+    left: 10px;
+    background-color: #8C8984;
+}
+
+.savedMemeContainer{
+    border: 2px solid black;
+    width: 500px;
+    height: 500px;
+    margin-bottom: 25px;
+    position: relative;
+}
