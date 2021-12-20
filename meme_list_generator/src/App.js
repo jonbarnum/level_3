@@ -74,7 +74,7 @@ class App extends Component{
             <div>
                 <div>
                     <div>
-                        <button onClick={this.randomImageGenerator}>New Image</button>
+                        <button className="newImageButton" onClick={this.randomImageGenerator}>New Image</button>
                     </div>
                     <div className="memeBox">
                         {this.state.previewActive ? (                            
