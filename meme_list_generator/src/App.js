@@ -7,7 +7,7 @@ class App extends Component{
         super()
         this.state={
             memeList: [],
-            savedMeme: [],
+            savedMemes: [],
             image: null,
             topText: '',
             bottomText: '',
@@ -65,35 +65,48 @@ class App extends Component{
         this.setState({
             topText: '',
             bottomText: '',
-            savedMeme: [
-                ...this.state.savedMeme,
+            savedMemes: [
+                ...this.state.savedMemes,
                 {
                     image: this.state.image,
                     topText: this.state.topText,
                     bottomText: this.state.bottomText,
-                    id: this.state.id
+                    id: this.state.id,
+                    editState: {
+                        editActive: false,
+                        topText: this.state.topEditText,
+                        bottomText: this.state.bottomEditText,
+                    }
                 }
             ]
         })
     }
 
-    handleEdit(){
-        this.setState( prevState => {
-            return {
-                editActive: !prevState.editActive
-            }
-        })
+    handleEdit(index){
+        this.state.savedMemes[index].editState.editActive = !this.state.savedMemes[index].editState.editActive
+        this.setState(this.state)
     }
+
 
     handleEditSubmit(event){
         event.preventDefault()
-        this.setState({
+        this.setState(prevState => ({
             topText: '',
             bottomText: '',
-            editActive: false,
-            topEditText: this.state.topEditText,
-            bottomEditText: this.state.bottomEditText
-        })
+            savedMemes: [
+                {
+                    ...prevState.savedMemes,
+                    image: prevState.image,
+                    topText: this.state.topEditText,
+                    bottomText: this.state.bottomEditText,
+                    editState: {
+                        editActive: false,
+                        topText: this.state.topEditText,
+                        bottomText: this.state.bottomEditText,
+                    }
+                }
+            ]
+        }))
     }
 
     render(){
@@ -140,35 +153,36 @@ class App extends Component{
                     </div>
                 </div>
                 <div>
-                    {this.state.savedMeme.map(savedImage => {
+                    {this.state.savedMemes.map((savedMeme, index) => {
                         return(
-                            <div id={savedImage?.id} key={savedImage?.id}>
-                                <div className="savedMemeContainer" >
-                                    {<h2 className="topText">{savedImage.topText}</h2>}
-                                    <img className="memeImage" src={savedImage.image} alt="meme list"/>
-                                    {<h2 className="bottomText">{savedImage.bottomText}</h2>}
-                                    <button onClick={this.handleEdit} className="button">Edit</button>
+                            <div id={savedMeme?.id} key={savedMeme?.id}>
+                                <div className="savedMemesContainer" >
+                                    {<h2 className="topText">{savedMeme.topText}</h2>}
+                                    <img className="memeImage" src={savedMeme.image} alt="meme list"/>
+                                    {<h2 className="bottomText">{savedMeme.bottomText}</h2>}
+                                    <button onClick={() => this.handleEdit(index)} className="button">Edit</button>
                                     <button className="button">Delete</button>
+                                    {console.log(savedMeme)}
                                 </div>
                                 <div>
-                                    {this.state.editActive ? (                            
+                                    {savedMeme.editState.editActive ? (                            
                                         <div className="editInputDiv">
                                             <form onSubmit={this.handleEditSubmit}>
                                                 <input
-                                                type='text'
-                                                value={this.state.topEditText}
-                                                name="topEditText"
-                                                placeholder="Top Text"
-                                                onChange={this.handleChange}
-                                                className="topTextInput"
+                                                    type='text'
+                                                    value={savedMeme.editState.topEditText}
+                                                    name="topEditText"
+                                                    placeholder="Top Text"
+                                                    onChange={this.handleChange}
+                                                    className="topTextInput"
                                                 />
                                                 <input
-                                                type='text'
-                                                value={this.state.bottomEditText}
-                                                name="bottomEditText"
-                                                placeholder="Bottom Text"
-                                                onChange={this.handleChange}
-                                                className="bottomTextInput"
+                                                    type='text'
+                                                    value={savedMeme.editState.bottomEditText}
+                                                    name="bottomEditText"
+                                                    placeholder="Bottom Text"
+                                                    onChange={this.handleChange}
+                                                    className="bottomTextInput"
                                                 />
                                                 <button type="submit">Submit</button>
                                             </form>
