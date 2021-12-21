@@ -13,16 +13,13 @@ class App extends Component{
             bottomText: '',
             previewActive: false,
             editActive: false,
-            // editTopText: '',
-            // editBottomText: ''
+            id: ''
         }
         this.randomImageGenerator = this.randomImageGenerator.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.preview = this.preview.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleEdit = this.handleEdit.bind(this)
-        // this.handleEditChange = this.handleEditChange.bind(this)
-        // this.handleEditSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount(){
@@ -30,7 +27,8 @@ class App extends Component{
         .then(response => {
             this.setState({
                 memeList: response.data.data.memes,
-                image: response.data.data.memes[0]?.url
+                image: response.data.data.memes[0]?.url,
+                id: response.data.data.memes[0]?.id
             })
         })
     }
@@ -38,7 +36,8 @@ class App extends Component{
     randomImageGenerator(){
         let randomImageNumber = Math.floor(Math.random() * 101)
         this.setState({
-            image: this.state.memeList[randomImageNumber]?.url
+            image: this.state.memeList[randomImageNumber]?.url,
+            id: this.state.memeList[randomImageNumber]?.id
         })
     }
 
@@ -68,10 +67,12 @@ class App extends Component{
                 {
                     image: this.state.image,
                     topText: this.state.topText,
-                    bottomText: this.state.bottomText      
+                    bottomText: this.state.bottomText,
+                    id: this.state.id
                 }
             ]
         })
+        console.log(this.state.savedMeme)
     }
 
     handleEdit(){
@@ -81,22 +82,6 @@ class App extends Component{
             }
         })
     }
-
-    // handleEditChange(event){
-    //     this.setState({
-    //         [event.target.name]: event.target.value
-    //     })
-    // }
-
-    // handleEditSubmit(event){
-    //     event.preventDefault()
-    //     this.setState({
-    //         topText: this.state.topText,
-    //         bottomText: this.state.bottomText,
-    //         editActive: false,
-    //     })
-    //     console.log('handle edit, worked')
-    // }
 
     render(){
         return(
@@ -151,36 +136,26 @@ class App extends Component{
                                     {<h2 className="bottomText">{savedImage.bottomText}</h2>}
                                     <button onClick={this.handleEdit} className="button">Edit</button>
                                     <button className="button">Delete</button>
-                                    {this.state.editActive ? (
-                                        <div>
-                                            <form>
-                                                <input/>
-                                                <input/>
-                                                <button>Save</button>
-                                                <button>Delete</button>
-                                            </form>
-                                        </div>
-                                    ) : null}
                                 </div>
-                                {/* <div>
+                                <div>
                                     <div>
                                         {this.state.editActive ? (                            
                                             <div className="editInputDiv">
-                                                <form onSubmit={this.handleEditSubmit}>
+                                                <form onSubmit={this.handleSubmit}>
                                                     <input
                                                     type='text'
-                                                    value={this.state.editTopText}
-                                                    name="editTopText"
+                                                    value={this.state.topText}
+                                                    name="topText"
                                                     placeholder="Top Text"
-                                                    onChange={this.handleEditChange}
+                                                    onChange={this.handleChange}
                                                     className="topTextInput"
                                                     />
                                                     <input
                                                     type='text'
-                                                    value={this.state.editBottomText}
-                                                    name="editBottomText"
+                                                    value={this.state.bottomText}
+                                                    name="bottomText"
                                                     placeholder="Bottom Text"
-                                                    onChange={this.handleEditChange}
+                                                    onChange={this.handleChange}
                                                     className="bottomTextInput"
                                                     />
                                                     <button type="submit">Submit</button>
@@ -188,7 +163,7 @@ class App extends Component{
                                             </div>
                                         ) : null}
                                     </div>
-                                </div> */}
+                                </div>
                             </div>
                         )
                     })}
