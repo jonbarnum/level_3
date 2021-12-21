@@ -11,6 +11,8 @@ class App extends Component{
             image: null,
             topText: '',
             bottomText: '',
+            topEditText: '',
+            bottomEditText: '',
             previewActive: false,
             editActive: false,
             id: ''
@@ -20,6 +22,7 @@ class App extends Component{
         this.preview = this.preview.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleEdit = this.handleEdit.bind(this)
+        this.handleEditSubmit = this.handleEditSubmit.bind(this)
     }
 
     componentDidMount(){
@@ -82,6 +85,17 @@ class App extends Component{
         })
     }
 
+    handleEditSubmit(event){
+        event.preventDefault()
+        this.setState({
+            topText: '',
+            bottomText: '',
+            editActive: false,
+            topEditText: this.state.topEditText,
+            bottomEditText: this.state.bottomEditText
+        })
+    }
+
     render(){
         return(
             <div>
@@ -139,19 +153,19 @@ class App extends Component{
                                 <div>
                                     {this.state.editActive ? (                            
                                         <div className="editInputDiv">
-                                            <form onSubmit={this.handleSubmit}>
+                                            <form onSubmit={this.handleEditSubmit}>
                                                 <input
                                                 type='text'
-                                                value={this.state.topText}
-                                                name="topText"
+                                                value={this.state.topEditText}
+                                                name="topEditText"
                                                 placeholder="Top Text"
                                                 onChange={this.handleChange}
                                                 className="topTextInput"
                                                 />
                                                 <input
                                                 type='text'
-                                                value={this.state.bottomText}
-                                                name="bottomText"
+                                                value={this.state.bottomEditText}
+                                                name="bottomEditText"
                                                 placeholder="Bottom Text"
                                                 onChange={this.handleChange}
                                                 className="bottomTextInput"
