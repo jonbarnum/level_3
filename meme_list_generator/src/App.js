@@ -72,7 +72,6 @@ class App extends Component{
                 }
             ]
         })
-        console.log(this.state.savedMeme)
     }
 
     handleEdit(){
@@ -129,8 +128,8 @@ class App extends Component{
                 <div>
                     {this.state.savedMeme.map(savedImage => {
                         return(
-                            <div>
-                                <div className="savedMemeContainer">
+                            <div id={savedImage?.id} key={savedImage?.id}>
+                                <div className="savedMemeContainer" >
                                     {<h2 className="topText">{savedImage.topText}</h2>}
                                     <img className="memeImage" src={savedImage.image} alt="meme list"/>
                                     {<h2 className="bottomText">{savedImage.bottomText}</h2>}
@@ -138,31 +137,29 @@ class App extends Component{
                                     <button className="button">Delete</button>
                                 </div>
                                 <div>
-                                    <div>
-                                        {this.state.editActive ? (                            
-                                            <div className="editInputDiv">
-                                                <form onSubmit={this.handleSubmit}>
-                                                    <input
-                                                    type='text'
-                                                    value={this.state.topText}
-                                                    name="topText"
-                                                    placeholder="Top Text"
-                                                    onChange={this.handleChange}
-                                                    className="topTextInput"
-                                                    />
-                                                    <input
-                                                    type='text'
-                                                    value={this.state.bottomText}
-                                                    name="bottomText"
-                                                    placeholder="Bottom Text"
-                                                    onChange={this.handleChange}
-                                                    className="bottomTextInput"
-                                                    />
-                                                    <button type="submit">Submit</button>
-                                                </form>
-                                            </div>
-                                        ) : null}
-                                    </div>
+                                    {this.state.editActive ? (                            
+                                        <div className="editInputDiv">
+                                            <form onSubmit={this.handleSubmit}>
+                                                <input
+                                                type='text'
+                                                value={this.state.topText}
+                                                name="topText"
+                                                placeholder="Top Text"
+                                                onChange={this.handleChange}
+                                                className="topTextInput"
+                                                />
+                                                <input
+                                                type='text'
+                                                value={this.state.bottomText}
+                                                name="bottomText"
+                                                placeholder="Bottom Text"
+                                                onChange={this.handleChange}
+                                                className="bottomTextInput"
+                                                />
+                                                <button type="submit">Submit</button>
+                                            </form>
+                                        </div>
+                                    ) : null}
                                 </div>
                             </div>
                         )
