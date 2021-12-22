@@ -85,33 +85,44 @@ class App extends Component{
         })
     }
 
-    handleEdit(index){
-        this.state.savedMemes[index].editState.editActive = !this.state.savedMemes[index].editState.editActive
-        this.setState(this.state)
-    }
-
-
-    handleEditSubmit(event, index){
-        event.preventDefault()
-        // const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
-        // savedMeme.editState.editActive = false
+    handleEdit(id){
+        const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
+        savedMeme.editState.editActive = !savedMeme.editState.editActive
         // savedMeme.topText = savedMeme.editState.topText
         // savedMeme.bottomText = savedMeme.editState.bottomText
 
-        // this.setState({
-        //     ...this.state,
-        //     savedMemes: [
-        //         ...this.state.savedMemes.slice(0, index),
-        //         savedMeme,
-        //         ...this.state.savedMemes.slice(index + 1),
-        //     ]
-        // })
+        this.setState({
+        })
+
+
+        // to use this while changing state directly put index as a parameter prior to id
+        // this.state.savedMemes[index].editState.editActive = !this.state.savedMemes[index].editState.editActive
+        // this.setState(this.state)
+        // const savedMemes[index].editState.editActive = !this.state.savedMemes[index].editState.editActive
+    }
+
+
+    handleEditSubmit(event, index, id){
+        event.preventDefault()
+        const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
+        savedMeme.editState.editActive = false
+        savedMeme.topText = savedMeme.editState.topText
+        savedMeme.bottomText = savedMeme.editState.bottomText
+
+        this.setState({
+            ...this.state,
+            savedMemes: [
+                ...this.state.savedMemes.slice(0, index),
+                savedMeme,
+                ...this.state.savedMemes.slice(index + 1),
+            ]
+        })
         
-        
-        this.state.savedMemes[index].editState.editActive = false
-        this.state.savedMemes[index].topText = this.state.savedMemes[index].editState.topText
-        this.state.savedMemes[index].bottomText = this.state.savedMemes[index].editState.bottomText
-        this.setState(this.state)
+        // to use this for changing state directly take out id as a parameter 
+        // this.state.savedMemes[index].editState.editActive = false
+        // this.state.savedMemes[index].topText = this.state.savedMemes[index].editState.topText
+        // this.state.savedMemes[index].bottomText = this.state.savedMemes[index].editState.bottomText
+        // this.setState(this.state)
         
     }
 
@@ -119,20 +130,30 @@ class App extends Component{
 
     handleDelete(event, index){
         event.preventDefault()
-        // let deletingMeme = event.currentTarget
-        // this.setState({
-
-        // })
-        // this.setState(prevState => ({
-        //     savedMemes:[
-        //         ...prevState.savedMemes
-        //     ]
-        // }))
+        this.setState({
+            ...this.state,
+            savedMemes: [
+                ...this.state.savedMemes.slice(0, index),
+                ...this.state.savedMemes.slice(index + 1)
+            ]
+        })
     }
 
-    handleSavedMemeText(event, index){
-        this.state.savedMemes[index].editState[event.target.name] = event.target.value
-        this.setState(this.state)
+    // handleSavedMemeText(event, index){
+    //     this.state.savedMemes[index].editState[event.target.name] = event.target.value
+    //     this.setState(this.state)
+    // }
+
+    handleSavedMemeText(event, index, id){
+        const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
+        savedMeme.topText = savedMeme.editState.topText
+        savedMeme.bottomText = savedMeme.editState.bottomText
+        savedMeme[index].editState.topText[event.target.name] = event.target.value
+        savedMeme[index].editState.bottomText[event.target.name] = event.target.value
+        this.setState({
+            [event.target.name]: event.target.value,
+            [event.target.name]: event.target.value,
+        })
     }
 
     render(){
@@ -181,24 +202,26 @@ class App extends Component{
                 <div>
                     {this.state.savedMemes.map((savedMeme, index) => {
                         return(
-                            <div key={savedMeme?.id}>
+                            <div key={savedMeme.id}>
                                 <div className="savedMemesContainer" >
                                     {<h2 className="topText">{savedMeme.topText}</h2>}
                                     <img className="memeImage" src={savedMeme.image} alt="meme list"/>
                                     {<h2 className="bottomText">{savedMeme.bottomText}</h2>}
-                                    <button onClick={() => this.handleEdit(index)} className="button">Edit</button>
-                                    <button onClick={this.handleDelete} className="button">Delete</button>
+                                    <button onClick={() => this.handleEdit(savedMeme.id)} className="button">Edit</button>
+                                    {/* to use the handleEdit while changing state directly use index as a argument prior to savedMeme.id */}
+                                    <button onClick={(event) =>this.handleDelete(event, index)} className="button">Delete</button>
                                 </div>
                                 <div>
                                     {savedMeme.editState.editActive ? (                            
                                         <div className="editInputDiv">
-                                            <form id={savedMeme.id} onSubmit={(event) => this.handleEditSubmit(event, index)}>
+                                            <form id={savedMeme.id} onSubmit={(event) => this.handleEditSubmit(event, index, savedMeme.id)}>
+                                                {/* to use the handleEditSubmit with changing state directly take out savedMeme.id after index */}
                                                 <input
                                                     type='text'
                                                     value={savedMeme.editState.topText}
                                                     name="topText"
                                                     placeholder="Top Text"
-                                                    onChange={(event) => this.handleSavedMemeText(event, index)}
+                                                    onChange={(event) => this.handleSavedMemeText(event, index, savedMeme.id)}
                                                     className="topTextInput"
                                                 />
                                                 <input
@@ -206,7 +229,7 @@ class App extends Component{
                                                     value={savedMeme.editState.bottomText}
                                                     name="bottomText"
                                                     placeholder="Bottom Text"
-                                                    onChange={(event) => this.handleSavedMemeText(event, index)}
+                                                    onChange={(event) => this.handleSavedMemeText(event, index, savedMeme.id)}
                                                     className="bottomTextInput"
                                                 />
                                                 <button type="submit">Submit</button>
