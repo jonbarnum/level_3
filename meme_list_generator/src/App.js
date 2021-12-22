@@ -23,6 +23,8 @@ class App extends Component{
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleEdit = this.handleEdit.bind(this)
         this.handleEditSubmit = this.handleEditSubmit.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
+        this.handleSavedMemeText = this.handleSavedMemeText.bind(this)
     }
 
     componentDidMount(){
@@ -76,6 +78,7 @@ class App extends Component{
                         editActive: false,
                         topText: this.state.topEditText,
                         bottomText: this.state.bottomEditText,
+                        image: this.state.image
                     }
                 }
             ]
@@ -88,25 +91,48 @@ class App extends Component{
     }
 
 
-    handleEditSubmit(event){
+    handleEditSubmit(event, index){
         event.preventDefault()
-        this.setState(prevState => ({
-            topText: '',
-            bottomText: '',
-            savedMemes: [
-                {
-                    ...prevState.savedMemes,
-                    image: prevState.image,
-                    topText: this.state.topEditText,
-                    bottomText: this.state.bottomEditText,
-                    editState: {
-                        editActive: false,
-                        topText: this.state.topEditText,
-                        bottomText: this.state.bottomEditText,
-                    }
-                }
-            ]
-        }))
+        // const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
+        // savedMeme.editState.editActive = false
+        // savedMeme.topText = savedMeme.editState.topText
+        // savedMeme.bottomText = savedMeme.editState.bottomText
+
+        // this.setState({
+        //     ...this.state,
+        //     savedMemes: [
+        //         ...this.state.savedMemes.slice(0, index),
+        //         savedMeme,
+        //         ...this.state.savedMemes.slice(index + 1),
+        //     ]
+        // })
+        
+        
+        this.state.savedMemes[index].editState.editActive = false
+        this.state.savedMemes[index].topText = this.state.savedMemes[index].editState.topText
+        this.state.savedMemes[index].bottomText = this.state.savedMemes[index].editState.bottomText
+        this.setState(this.state)
+        
+    }
+
+
+
+    handleDelete(event, index){
+        event.preventDefault()
+        // let deletingMeme = event.currentTarget
+        // this.setState({
+
+        // })
+        // this.setState(prevState => ({
+        //     savedMemes:[
+        //         ...prevState.savedMemes
+        //     ]
+        // }))
+    }
+
+    handleSavedMemeText(event, index){
+        this.state.savedMemes[index].editState[event.target.name] = event.target.value
+        this.setState(this.state)
     }
 
     render(){
@@ -155,33 +181,32 @@ class App extends Component{
                 <div>
                     {this.state.savedMemes.map((savedMeme, index) => {
                         return(
-                            <div id={savedMeme?.id} key={savedMeme?.id}>
+                            <div key={savedMeme?.id}>
                                 <div className="savedMemesContainer" >
                                     {<h2 className="topText">{savedMeme.topText}</h2>}
                                     <img className="memeImage" src={savedMeme.image} alt="meme list"/>
                                     {<h2 className="bottomText">{savedMeme.bottomText}</h2>}
                                     <button onClick={() => this.handleEdit(index)} className="button">Edit</button>
-                                    <button className="button">Delete</button>
-                                    {console.log(savedMeme)}
+                                    <button onClick={this.handleDelete} className="button">Delete</button>
                                 </div>
                                 <div>
                                     {savedMeme.editState.editActive ? (                            
                                         <div className="editInputDiv">
-                                            <form onSubmit={this.handleEditSubmit}>
+                                            <form id={savedMeme.id} onSubmit={(event) => this.handleEditSubmit(event, index)}>
                                                 <input
                                                     type='text'
-                                                    value={savedMeme.editState.topEditText}
-                                                    name="topEditText"
+                                                    value={savedMeme.editState.topText}
+                                                    name="topText"
                                                     placeholder="Top Text"
-                                                    onChange={this.handleChange}
+                                                    onChange={(event) => this.handleSavedMemeText(event, index)}
                                                     className="topTextInput"
                                                 />
                                                 <input
                                                     type='text'
-                                                    value={savedMeme.editState.bottomEditText}
-                                                    name="bottomEditText"
+                                                    value={savedMeme.editState.bottomText}
+                                                    name="bottomText"
                                                     placeholder="Bottom Text"
-                                                    onChange={this.handleChange}
+                                                    onChange={(event) => this.handleSavedMemeText(event, index)}
                                                     className="bottomTextInput"
                                                 />
                                                 <button type="submit">Submit</button>
