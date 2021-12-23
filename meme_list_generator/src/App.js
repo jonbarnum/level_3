@@ -85,13 +85,19 @@ class App extends Component{
         })
     }
 
-    handleEdit(id){
+    handleEdit(index, id){
         const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
         savedMeme.editState.editActive = !savedMeme.editState.editActive
         // savedMeme.topText = savedMeme.editState.topText
         // savedMeme.bottomText = savedMeme.editState.bottomText
 
         this.setState({
+            ...this.state,
+            savedMemes: [
+                ...this.state.savedMemes.slice(0, index),
+                savedMeme,
+                ...this.state.savedMemes.slice(index + 1),
+            ]
         })
 
 
@@ -146,13 +152,15 @@ class App extends Component{
 
     handleSavedMemeText(event, index, id){
         const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
-        savedMeme.topText = savedMeme.editState.topText
-        savedMeme.bottomText = savedMeme.editState.bottomText
-        savedMeme[index].editState.topText[event.target.name] = event.target.value
-        savedMeme[index].editState.bottomText[event.target.name] = event.target.value
+        savedMeme.editState[event.target.name] = event.target.value
+        
         this.setState({
-            [event.target.name]: event.target.value,
-            [event.target.name]: event.target.value,
+            ...this.state,
+            savedMemes: [
+                ...this.state.savedMemes.slice(0, index),
+                savedMeme,
+                ...this.state.savedMemes.slice(index + 1),
+            ]
         })
     }
 
@@ -207,7 +215,7 @@ class App extends Component{
                                     {<h2 className="topText">{savedMeme.topText}</h2>}
                                     <img className="memeImage" src={savedMeme.image} alt="meme list"/>
                                     {<h2 className="bottomText">{savedMeme.bottomText}</h2>}
-                                    <button onClick={() => this.handleEdit(savedMeme.id)} className="button">Edit</button>
+                                    <button onClick={() => this.handleEdit(index, savedMeme.id)} className="button">Edit</button>
                                     {/* to use the handleEdit while changing state directly use index as a argument prior to savedMeme.id */}
                                     <button onClick={(event) =>this.handleDelete(event, index)} className="button">Delete</button>
                                 </div>
