@@ -9,7 +9,7 @@ class MemeForm extends Component{
         this.state={
             memeList: [],
             savedMemes: [],
-            image: null,
+            image: null, //speficies the initial state rather than the loaded image reference
             topText: '',
             bottomText: '',
             topEditText: '',
@@ -18,7 +18,7 @@ class MemeForm extends Component{
             editActive: false,
             id: ''
         }
-        this.randomImageGenerator = this.randomImageGenerator.bind(this)
+        this.randomImageGenerator = this.randomImageGenerator.bind(this) //'this' represents the current scope of the instance of MemeForm
         this.handleChange = this.handleChange.bind(this)
         this.preview = this.preview.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -29,7 +29,7 @@ class MemeForm extends Component{
     }
 
     componentDidMount(){
-        axios.get('https://api.imgflip.com/get_memes')
+        axios.get('https://api.imgflip.com/get_memes') //using the http .get verb/method and fetching from url. POST will allow for a body on the request. Body can be information that you want to send to the server. axios will return a promise. A promise can have a .then chained onto it. Also a .catch for catching an error
         .then(response => {
             this.setState({
                 memeList: response.data.data.memes,
@@ -49,7 +49,7 @@ class MemeForm extends Component{
 
     handleChange(event){
         this.setState({
-            [event.target.name]: event.target.value,
+            [event.target.name]: event.target.value, //target is the actual dom node that triggered the event. [code] allows for dynamic changes as opposed to static 
             previewActive: false
         })
     }
@@ -87,7 +87,7 @@ class MemeForm extends Component{
     }
 
     handleEdit(index, id){
-        const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
+        const savedMeme = this.state.savedMemes.find((meme) => meme.id === id) //if true it will return the first item that the function returns true on
         savedMeme.editState.editActive = !savedMeme.editState.editActive
         // savedMeme.topText = savedMeme.editState.topText
         // savedMeme.bottomText = savedMeme.editState.bottomText
@@ -165,7 +165,7 @@ class MemeForm extends Component{
         })
     }
 
-    render(){
+    render(){ //render function renders the code to the dom, runs over and over. the render function will compare its changes to the virtual dom. if there are changes then it will render the changes to the dom
         return(
             <MemeFormComponent
                 randomImageGenerator={this.randomImageGenerator}

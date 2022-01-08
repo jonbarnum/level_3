@@ -11,6 +11,7 @@ function MemeFormComponent(props){
                     {props.data.previewActive ? (                            
                         <h2 className="topText">{props.data.topText}</h2>
                     ) : null}
+                    {/* <h2 className={'topText ' + (props.data.previewActive ? 'plop' : '')}>{props.data.topText}</h2> */}
                     <img 
                         className="memeImage" 
                         src={props.data.image} 
@@ -48,9 +49,9 @@ function MemeFormComponent(props){
                     return(
                         <div key={savedMeme.id}>
                             <div className="savedMemesContainer" >
-                                {<h2 className="topText">{savedMeme.topText}</h2>}
+                                <h2 className="topText">{savedMeme.topText}</h2>
                                 <img className="memeImage" src={savedMeme.image} alt="meme list"/>
-                                {<h2 className="bottomText">{savedMeme.bottomText}</h2>}
+                                <h2 className="bottomText">{savedMeme.bottomText}</h2>
                                 <button onClick={() => props.handleEdit(index, savedMeme.id)} className="button">Edit</button>
                                 {/* to use the handleEdit while changing state directly use index as a argument prior to savedMeme.id */}
                                 <button onClick={(event) =>props.handleDelete(event, index)} className="button">Delete</button>
@@ -58,8 +59,8 @@ function MemeFormComponent(props){
                             <div>
                                 {savedMeme.editState.editActive ? (                            
                                     <div className="editInputDiv">
-                                        <form id={savedMeme.id} onSubmit={(event) => props.handleEditSubmit(event, index, savedMeme.id)}>
-                                            {/* to use the handleEditSubmit with changing state directly take out savedMeme.id after index */}
+                                        <form id={savedMeme.id} onSubmit={(event) => props.handleEditSubmit(event, index, savedMeme.id)}> 
+                                            {/*on the onsubmit we are creating a function that allows me to get arguments passed through. to use the handleEditSubmit with changing state directly take out savedMeme.id after index */}
                                             <input
                                                 type='text'
                                                 value={savedMeme.editState.topText}
