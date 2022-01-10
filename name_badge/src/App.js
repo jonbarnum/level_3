@@ -24,10 +24,36 @@ class App extends Component{
     }
 
 
+    // handleSubmit(event){
+    //     event.preventDefault()
+    //     this.setState({
+    //         ...this.state,
+    //         firstName: '',
+    //         lastName: '',
+    //         email: '',
+    //         placeOfBirth: '',
+    //         phone: '',
+    //         favoriteFood: '',
+    //         yourself: '',
+    //         nameCard: [
+    //             ...this.state.nameCard,
+    //             {
+    //                 firstName: this.state.firstName, 
+    //                 lastName: this.state.lastName, 
+    //                 email: this.state.email,
+    //                 placeOfBirth: this.state.placeOfBirth,
+    //                 phone: this.state.phone,
+    //                 favoriteFood: this.state.favoriteFood,
+    //                 yourself: this.state.yourself
+    //             }
+    //         ]
+    //     })
+    // }
+
     handleSubmit(event){
         event.preventDefault()
-        this.setState({
-            ...this.state,
+        this.setState((prevState) => ({
+            ...prevState,
             firstName: '',
             lastName: '',
             email: '',
@@ -36,21 +62,19 @@ class App extends Component{
             favoriteFood: '',
             yourself: '',
             nameCard: [
-                ...this.state.nameCard,
+                ...prevState.nameCard,
                 {
-                    firstName: this.state.firstName, 
-                    lastName: this.state.lastName, 
-                    email: this.state.email,
-                    placeOfBirth: this.state.placeOfBirth,
-                    phone: this.state.phone,
-                    favoriteFood: this.state.favoriteFood,
-                    yourself: this.state.yourself
+                    firstName: prevState.firstName,
+                    lastName: prevState.lastName,
+                    email: prevState.email,
+                    placeOfBirth: prevState.placeOfBirth,
+                    phone: prevState.phone,
+                    favoriteFood: prevState.favoriteFood,
+                    yourself: prevState.yourself
                 }
             ]
-        })
-        console.log('handle submit, worked')
+        }))
     }
-
 
     render(){
         return(
