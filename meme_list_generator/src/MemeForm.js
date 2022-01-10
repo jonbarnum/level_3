@@ -39,12 +39,20 @@ class MemeForm extends Component{
         })
     }
 
+    // randomImageGenerator(){
+    //     let randomImageNumber = Math.floor(Math.random() * 101)
+    //     this.setState({
+    //         image: this.state.memeList[randomImageNumber]?.url,
+    //         id: this.state.memeList[randomImageNumber]?.id
+    //     })
+    // }
+
     randomImageGenerator(){
         let randomImageNumber = Math.floor(Math.random() * 101)
-        this.setState({
-            image: this.state.memeList[randomImageNumber]?.url,
-            id: this.state.memeList[randomImageNumber]?.id
-        })
+        this.setState((prevState) => ({
+            image: prevState.memeList[randomImageNumber]?.url,
+            id: prevState.memeList[randomImageNumber]?.id
+        }))
     }
 
     handleChange(event){
@@ -54,37 +62,84 @@ class MemeForm extends Component{
         })
     }
 
+    // preview(event){
+    //     event.preventDefault()
+    //     this.setState({
+    //         topText: this.state.topText,
+    //         bottomText: this.state.bottomText,
+    //         previewActive: true
+    //     })
+    // }
+
     preview(event){
         event.preventDefault()
-        this.setState({
-            topText: this.state.topText,
-            bottomText: this.state.bottomText,
+        this.setState((prevState) => ({
+            topText: prevState.topText,
+            bottomText: prevState.bottomText,
             previewActive: true
-        })
+        }))
     }
+
+    // handleSubmit(event){
+    //     event.preventDefault()
+    //     this.setState({
+    //         topText: '',
+    //         bottomText: '',
+    //         savedMemes: [
+    //             ...this.state.savedMemes,
+    //             {
+    //                 image: this.state.image,
+    //                 topText: this.state.topText,
+    //                 bottomText: this.state.bottomText,
+    //                 id: this.state.id,
+    //                 editState: {
+    //                     editActive: false,
+    //                     topText: this.state.topEditText,
+    //                     bottomText: this.state.bottomEditText,
+    //                     image: this.state.image
+    //                 }
+    //             }
+    //         ]
+    //     })
+    // }
 
     handleSubmit(event){
         event.preventDefault()
-        this.setState({
+        this.setState((prevState) => ({
             topText: '',
             bottomText: '',
             savedMemes: [
-                ...this.state.savedMemes,
+                ...prevState.savedMemes,
                 {
-                    image: this.state.image,
-                    topText: this.state.topText,
-                    bottomText: this.state.bottomText,
-                    id: this.state.id,
+                    image: prevState.image,
+                    topText: prevState.topText,
+                    bottomText: prevState.bottomText,
+                    id: prevState.id,
                     editState: {
                         editActive: false,
-                        topText: this.state.topEditText,
-                        bottomText: this.state.bottomEditText,
-                        image: this.state.image
+                        topText: prevState.topEditText,
+                        bottomText: prevState.bottomEditText,
+                        image: prevState.image
                     }
                 }
             ]
-        })
+        }))
     }
+
+    // handleEdit(index, id){
+    //     const savedMeme = this.state.savedMemes.find((meme) => meme.id === id) //if true it will return the first item that the function returns true on
+    //     savedMeme.editState.editActive = !savedMeme.editState.editActive
+    //     // savedMeme.topText = savedMeme.editState.topText
+    //     // savedMeme.bottomText = savedMeme.editState.bottomText
+
+    //     this.setState({
+    //         ...this.state,
+    //         savedMemes: [
+    //             ...this.state.savedMemes.slice(0, index),
+    //             savedMeme,
+    //             ...this.state.savedMemes.slice(index + 1),
+    //         ]
+    //     })
 
     handleEdit(index, id){
         const savedMeme = this.state.savedMemes.find((meme) => meme.id === id) //if true it will return the first item that the function returns true on
@@ -92,14 +147,14 @@ class MemeForm extends Component{
         // savedMeme.topText = savedMeme.editState.topText
         // savedMeme.bottomText = savedMeme.editState.bottomText
 
-        this.setState({
-            ...this.state,
+        this.setState((prevState) => ({
+            ...prevState,
             savedMemes: [
-                ...this.state.savedMemes.slice(0, index),
+                ...prevState.savedMemes.slice(0, index),
                 savedMeme,
-                ...this.state.savedMemes.slice(index + 1),
+                ...prevState.savedMemes.slice(index + 1)
             ]
-        })
+        }))
 
 
         // to use this while changing state directly put index as a parameter prior to id
@@ -109,6 +164,30 @@ class MemeForm extends Component{
     }
 
 
+    // handleEditSubmit(event, index, id){
+    //     event.preventDefault()
+    //     const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
+    //     savedMeme.editState.editActive = false
+    //     savedMeme.topText = savedMeme.editState.topText
+    //     savedMeme.bottomText = savedMeme.editState.bottomText
+
+    //     this.setState({
+    //         ...this.state,
+    //         savedMemes: [
+    //             ...this.state.savedMemes.slice(0, index),
+    //             savedMeme,
+    //             ...this.state.savedMemes.slice(index + 1),
+    //         ]
+    //     })
+        
+    //     // to use this for changing state directly take out id as a parameter 
+    //     // this.state.savedMemes[index].editState.editActive = false
+    //     // this.state.savedMemes[index].topText = this.state.savedMemes[index].editState.topText
+    //     // this.state.savedMemes[index].bottomText = this.state.savedMemes[index].editState.bottomText
+    //     // this.setState(this.state)
+        
+    // }
+
     handleEditSubmit(event, index, id){
         event.preventDefault()
         const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
@@ -116,14 +195,14 @@ class MemeForm extends Component{
         savedMeme.topText = savedMeme.editState.topText
         savedMeme.bottomText = savedMeme.editState.bottomText
 
-        this.setState({
-            ...this.state,
+        this.setState((prevState) => ({
+            ...prevState,
             savedMemes: [
-                ...this.state.savedMemes.slice(0, index),
+                ...prevState.savedMemes.slice(0, index),
                 savedMeme,
-                ...this.state.savedMemes.slice(index + 1),
+                ...prevState.savedMemes.slice(index + 1)
             ]
-        })
+        }))
         
         // to use this for changing state directly take out id as a parameter 
         // this.state.savedMemes[index].editState.editActive = false
@@ -134,35 +213,60 @@ class MemeForm extends Component{
     }
 
 
+    // handleDelete(event, index){
+    //     event.preventDefault()
+    //     this.setState({
+    //         ...this.state,
+    //         savedMemes: [
+    //             ...this.state.savedMemes.slice(0, index),
+    //             ...this.state.savedMemes.slice(index + 1)
+    //         ]
+    //     })
+    // }
 
     handleDelete(event, index){
         event.preventDefault()
-        this.setState({
-            ...this.state,
+        this.setState((prevState) => ({
+            ...prevState,
             savedMemes: [
-                ...this.state.savedMemes.slice(0, index),
-                ...this.state.savedMemes.slice(index + 1)
+                ...prevState.savedMemes.slice(0, index),
+                ...prevState.savedMemes.slice(index + 1)
             ]
-        })
+        }))
     }
+
     //this is used if changing state directly
     // handleSavedMemeText(event, index){
     //     this.state.savedMemes[index].editState[event.target.name] = event.target.value
     //     this.setState(this.state)
     // }
 
+    // handleSavedMemeText(event, index, id){
+    //     const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
+    //     savedMeme.editState[event.target.name] = event.target.value
+        
+    //     this.setState({
+    //         ...this.state,
+    //         savedMemes: [
+    //             ...this.state.savedMemes.slice(0, index),
+    //             savedMeme,
+    //             ...this.state.savedMemes.slice(index + 1),
+    //         ]
+    //     })
+    // }
+
     handleSavedMemeText(event, index, id){
         const savedMeme = this.state.savedMemes.find((meme) => meme.id === id)
         savedMeme.editState[event.target.name] = event.target.value
         
-        this.setState({
-            ...this.state,
+        this.setState((prevState) => ({
+            ...prevState,
             savedMemes: [
-                ...this.state.savedMemes.slice(0, index),
+                ...prevState.savedMemes.slice(0, index),
                 savedMeme,
-                ...this.state.savedMemes.slice(index + 1),
+                ...prevState.savedMemes.slice(index + 1)
             ]
-        })
+        }))
     }
 
     render(){ //render function renders the code to the dom, runs over and over. the render function will compare its changes to the virtual dom. if there are changes then it will render the changes to the dom
